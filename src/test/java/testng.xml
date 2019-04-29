@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+  <test name="Test">
+    <classes>
+      <class name="com.test.api2.SmsCodePost2"/>
+      <class name="com.test.api2.RegisterPost"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
