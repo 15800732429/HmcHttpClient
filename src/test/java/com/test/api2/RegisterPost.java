@@ -29,6 +29,7 @@ public class RegisterPost{
 	 int registerresponseCode;
 	 String registerstatus;
 	 String postBody;
+	 static String registeraccessToken;
 	 String phoneRan = SmsCodePost2.phoneRan;
      
 	    
@@ -48,18 +49,17 @@ public class RegisterPost{
 	 
 	            // 建立与数据库的Connection连接
 	            // 这里需要提供：
-	            // 数据库所处于的ip:10.0.3.33
-	            // 数据库的端口号： 3306 （mysql专用端口号）
-	            // 数据库名称 hmc_test
+	            // 数据库所处于的ip:****
+	            // 数据库的端口号： ****** （mysql专用端口号）
+	            // 数据库名称 ******
 	            // 编码方式 UTF-8
-	            // 账号 service
-	            // 密码 bjI21MlZ
+	   
 	 
 	            
 	            Connection c = DriverManager
 	                    .getConnection(
-	                            "jdbc:mysql://10.0.3.33:3306/hmc_test?characterEncoding=UTF-8",
-	                            "service", "bjI21MlZ");
+	                            "jdbc:mysql://****:****/hmc_test?characterEncoding=UTF-8",
+	                            "****", "****");
 	         // 注意：使用的是 java.sql.Statement
 	            // 不要不小心使用到： com.mysql.jdbc.Statement;
 	            Statement s = c.createStatement();
@@ -71,9 +71,6 @@ public class RegisterPost{
 	            
 	           
 	         // 执行查询语句，并把结果集返回给ResultSet
-	            
-	          
-	            
 	            String subsms_code = "";
 	            ResultSet rs = s.executeQuery(sql);
 	            
@@ -98,44 +95,9 @@ public class RegisterPost{
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        }
-		  
-		  
-		  
-		  
-		  
-
-//	      HashMap map = new HashMap();
-//	      
-//	      map.put("userPhone","13605998814");
-//	      map.put("codeType", "1");	
-//	      map.put("cityCode", "310000");
-//	      System.out.println("JSON.toJSONString(map)的值为"+JSON.toJSONString(map));
-//	      
-//	      //用NameValuePair的list来添加请求主体参数
-//	     List<NameValuePair> params = new ArrayList<NameValuePair>();
-//	      params.add(new BasicNameValuePair("data",JSON.toJSONString(map)));
-//	      
-//	      Date date = new Date();
-//	     
-//	      
-//	     params.add(new BasicNameValuePair("time",Long.toString(date.getTime())));
-//	      params.add(new BasicNameValuePair("source","101")); 
-//	      	      
-//	      HashMap params1 = new HashMap();
-//	     params1.put("data",map);
-//	      params1.put("source",101);
-//	      params1.put("time", "1555990238000");
-//	     
-	      
-	      
-	      //用哈希图准备请求头部信息
-	      //HashMap<String, String> hashHead = new HashMap<String, String>();
-	      //hashHead.put("Content-Type", "application/json;charset=UTF-8");
-	      //hashHead.put("referer", "http://mb-test.haomaiche.com/sh/subscribeView");
-	      //hashHead.put("accessToken","OGM3ZGFiMWI2ZjMzNGJiY2JkZTY5Njc4NTM1NjM1ZWQjMTAyI0FUI3NXIW1AWk1p");
 	     
-		
 	  }
+	  
 	  public void request(String subsms_code) {
 		  registerclient = new RestfulClientpo2();
           //注册接口地址    
@@ -146,22 +108,29 @@ public class RegisterPost{
   		  String tsj = Long.toString(date.getTime());
   		  //String phoneRan = PhoneBuilder.build();
   		  System.out.println("143行的手机号码为"+phoneRan);
-  	      String registerbody = "{\"data\":{\"userPhone\":\""+phoneRan+"\",\"smsCode\":\""+subsms_code+"\",\"cityCode\":310000,\"attachMarketOrigin\":\"null\",\"attachMarketKeyword\":\"null\",\"userName\":\"2936\",\"attachUserOrigin\":3,\"attachUserRemark\":\"\"},\"time\":"+tsj+",\"source\":102}";
+  	      String registerbody = "{\"data\":{\"userPhone\":\""+phoneRan+"\",\"smsCode\":\""+subsms_code+"\",\"cityCode\":310000,\"attachMarketOrigin\":\"null\",\"attachMarketKeyword\":\"null\",\"userName\":\"接口测试\",\"attachUserOrigin\":3,\"attachUserRemark\":\"\"},\"time\":"+tsj+",\"source\":102}";
   	      //String registerbody = "{\"data\":{\"userPhone\":\""+phoneRan+"\",\"smsCode\":\"8019\",\"cityCode\":310000,\"attachMarketOrigin\":\"null\",\"attachMarketKeyword\":\"null\",\"userName\":\"2936\",\"attachUserOrigin\":3,\"attachUserRemark\":\"\"},\"time\":"+tsj+",\"source\":102}";
   	    
   	      
   	  //传参发送验证码接口post请求并接收反馈
 	     try {
-	    	 registerclient.sendPost(registerurl1, registerbody);
-		      
+	    	 
+		      registerclient.sendPost(registerurl1, registerbody,null);
+
 		      registerresponseBody = registerclient.getBodyInJSON();
 		      registerresponseCode = registerclient.getCodeInNumber();
 		      System.out.println("注册接口registerresponseCode等于"+registerresponseCode);
-		      
 		      System.out.println("注册接口registerresponseBody等于："+registerresponseBody);
+		     
 		      registerjParser = new JSONParser2();
 		      registerstatus = registerjParser.getStatus(registerresponseBody);
 		      System.out.println("注册接口registerstatus的值为"+registerstatus);
+		      
+		      registeraccessToken = registerjParser.getaccessToken(registerresponseBody);
+		      System.out.println("注册之后用户的accessToken值为"+registeraccessToken);
+		      
+		      
+		      
 	     }catch(IOException e) {
 	    	 
 	     }catch(ParseException e) {
@@ -169,5 +138,6 @@ public class RegisterPost{
 	    	 
 	     }
 	  }
+	  
 
 }

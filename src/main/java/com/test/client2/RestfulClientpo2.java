@@ -1,6 +1,7 @@
 package com.test.client2;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -37,8 +38,8 @@ public class RestfulClientpo2 {
     HashMap<String, String> responseHeads;
     
 //  //通过httpclient获取post请求的反馈
-    public void sendPost(String url, String body) throws ClientProtocolException, IOException{
-    	
+    public void sendPost(String url, String body,String accessToken) throws ClientProtocolException, IOException{
+    	//String accessToken1 = "";
     	httpclient = HttpClients.createDefault();
     	//RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(20000).setConnectTimeout(20000).build();
         //创建post请求对象
@@ -51,13 +52,15 @@ public class RestfulClientpo2 {
         //httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
         //设置发送验证码接口主体格式
         httpPost.setEntity(new StringEntity(body));
+        
+        
         //测试订阅降价通知，添加头部的accesstoken，请求成功
-        //httpPost.addHeader("accessToken", "OGM3ZGFiMWI2ZjMzNGJiY2JkZTY5Njc4NTM1NjM1ZWQjMTAyI0FUIzIhY05saGoz");
+        httpPost.addHeader("accessToken",accessToken);
         //添加发送验证码接口referer
-        httpPost.addHeader("referer", "http://mb-test.haomaiche.com/sh/login?fromPage=%2Fsh%2FuserCenter%2FparityOrderList");
+        //httpPost.addHeader("referer", "http://mb-test.haomaiche.com/sh/login?fromPage=%2Fsh%2FuserCenter%2FparityOrderList");
         //httpPost.addHeader("Content-Type","application/json;charset=UTF-8");
-        //添加注册接口referer
-        //httpPost.addHeader("referer","http://mb-test.haomaiche.com/sh/login?fromPage=%2Fsh%2FuserCenter%2FparityOrderList");
+        //添加订阅接口referer
+        httpPost.addHeader("referer","http://mb-test.haomaiche.com/sh/subscribeView");
         ////设置下头部信息
 //        Set<String> set = headers.keySet();
 //        for(Iterator<String> iterator = set.iterator(); iterator.hasNext();){

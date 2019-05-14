@@ -3,12 +3,12 @@
 <suite name="Failed suite [Suite]">
   <test thread-count="5" name="Test(failed)">
     <classes>
-      <class name="com.test.api2.RegisterPost">
+      <class name="com.test.api2.Subscribe">
         <methods>
-          <include name="beforeClass"/>
           <include name="testPostRequest"/>
+          <include name="beforeClass"/>
         </methods>
-      </class> <!-- com.test.api2.RegisterPost -->
+      </class> <!-- com.test.api2.Subscribe -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

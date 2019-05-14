@@ -4,6 +4,7 @@
     <classes>
       <class name="com.test.api2.SmsCodePost2"/>
       <class name="com.test.api2.RegisterPost"/>
+      <class name="com.test.api2.Subscribe"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

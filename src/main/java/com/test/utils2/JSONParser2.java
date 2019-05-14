@@ -3,8 +3,7 @@ package com.test.utils2;
 import com.alibaba.fastjson.JSONObject;
 
 public class JSONParser2 {
-	JSONObject internalJSON;
-	//JSONObject jsonObject = null;  
+	JSONObject internalJSON;  
 	public String getStatus(JSONObject jo){
 		 String status = "";
 		 try{
@@ -17,19 +16,30 @@ public class JSONParser2 {
 		
 	}
 		
-//	public String getProvince(JSONObject jo) {
-//		String province = "";
-//		try {
-//			//先获取反馈中的result这个一个内部JSON对象
-//			JSONObject internalJSON = jo.getJSONObject("result");
-//			//再根据键名查找键值
-//			province = internalJSON.getString("province") ;
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		return province;
-//		
-//	}
+	public String getaccessToken(JSONObject jo) {
+		String accessToken = "";
+		try {
+			JSONObject internalJSON = jo.getJSONObject("data");
+			JSONObject authJSON = internalJSON.getJSONObject("auth");
+			accessToken = authJSON.getString("accessToken");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return accessToken;
+		
+	}
+	
+	public String getsubscribeflag(JSONObject jo) {
+		String flag = "";
+		try {
+			JSONObject internalJSON = jo.getJSONObject("data");
+			flag = internalJSON.getString("flag");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+		
+	}
 	
 }
 

@@ -84,10 +84,9 @@ public class SmsCodePost2{
       //HashMap<String, String> hashHead = new HashMap<String, String>();
       //hashHead.put("Content-Type", "application/json;charset=UTF-8");
       //hashHead.put("referer", "http://mb-test.haomaiche.com/sh/subscribeView");
-      //hashHead.put("accessToken","OGM3ZGFiMWI2ZjMzNGJiY2JkZTY5Njc4NTM1NjM1ZWQjMTAyI0FUI3NXIW1AWk1p");
      
 	//传参发送验证码接口post请求并接收反馈
-      smsCodeclient.sendPost(smsCodeurl, smsCodebody);
+      smsCodeclient.sendPost(smsCodeurl, smsCodebody,null);
       
       smsCoderesponseBody = smsCodeclient.getBodyInJSON();
       smsCoderesponseCode = smsCodeclient.getCodeInNumber();
